@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.coyote.http11.upgrade.UpgradeServletOutputStream;
 
 import com.douzone.mysite.repository.UserRepository;
 import com.douzone.mysite.vo.UserVo;

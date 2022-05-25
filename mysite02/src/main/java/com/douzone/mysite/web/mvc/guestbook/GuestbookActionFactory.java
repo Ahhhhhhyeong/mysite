@@ -10,12 +10,14 @@ public class GuestbookActionFactory extends ActionFactory {
 	public Action getAction(String actionName) {
 		Action action = null;
 		
-		if("joinform".equals(actionName)) {
-			//action = new JoinFormAction();
-		} else if("join".equals(actionName)) {
-			//action = new JoinAction();
-		} else if("joinsuccess".equals(actionName)) {
-			//action = new JoinSuccess();
+		if("deleteform".equals(actionName)) {
+			action = new DeleteFormAction();
+		} else if("delete".equals(actionName)) {
+			action = new DeleteAction();
+		} else if("insert".equals(actionName)) {
+			action = new InsertAction();
+		} else if("list".equals(actionName)) {
+			action = new ListAction();
 		} else {
 			action = new DefaultAction();
 		}

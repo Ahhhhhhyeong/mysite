@@ -107,6 +107,7 @@ public class GuestBookRepository {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		int count = 0;	
+		
 		try {
 			connection = getConnection();
 				

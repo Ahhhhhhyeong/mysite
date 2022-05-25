@@ -27,7 +27,8 @@ public class GuestBookRepository {
 				+ "    @ROWNUM := @ROWNUM + 1 AS ROWNUM, "
 				+ "    a.name, a.password, a.message, date_format(a.regdate, '%Y-%m-%d') as regdate, a.no "
 				+ "FROM (SELECT * FROM guestbook g order by g.no desc) a, "
-				+ "(SELECT @ROWNUM :=0) as b";
+				+ "(SELECT @ROWNUM :=0) as b "
+				+ " order by @ROWNUM desc";
 			pstmt = connection.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();

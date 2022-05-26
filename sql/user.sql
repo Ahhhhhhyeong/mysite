@@ -1,13 +1,24 @@
 -- UserRepository
-
 desc user;
 
+-- join
 insert 
 into user 
 values (null, '관리자', 'admin@mysite.com', '1234', 'female',now());
 
 select * from user;
 
+-- login
+SELECT 
+	no, name
+FROM
+    user
+WHERE
+    email = 'admin@mysite.com'
+        AND password = '1234';
+
+
+-- GuestbookRepository
 select * from guestbook;
 
 SELECT  
@@ -19,3 +30,5 @@ order by @ROWNUM desc;
 
 select name, password, message, regdate, no
  from guestbook;
+ 
+ 

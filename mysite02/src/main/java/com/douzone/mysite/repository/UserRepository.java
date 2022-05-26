@@ -156,19 +156,33 @@ public class UserRepository {
 				
 		try {
 			connection = getConnection();
+			String sql =null;
+			if(vo.getPassword() == "") {
+				sql = " UPDATE user "
+						+ "SET  "
+						+ "    name = ?, "
+						+ "    gender = ? "
+						+ "WHERE\r\n"
+						+ "    email = ? ";
+				pstmt = connection.prepareStatement(sql);			
+				pstmt.setString(1,vo.getName());
+				pstmt.setString(2,vo.getGender());
+				pstmt.setString(3,vo.getEmail());
+			}else {
+				sql = " UPDATE user "
+						+ "SET  "
+						+ "    name = ?, "
+						+ "    gender = ?, "
+						+ "    password = ? "
+						+ "WHERE\r\n"
+						+ "    email = ? ";
 				
-			String sql = " UPDATE user "
-					+ "SET  "
-					+ "    name = ?, "
-					+ "    gender = ?, "
-					+ "    password = ? "
-					+ "WHERE\r\n"
-					+ "    email = ? ";
-			pstmt = connection.prepareStatement(sql);			
-			pstmt.setString(1,vo.getName());
-			pstmt.setString(2,vo.getGender());
-			pstmt.setString(3,vo.getPassword());
-			pstmt.setString(4,vo.getEmail());
+				pstmt = connection.prepareStatement(sql);			
+				pstmt.setString(1,vo.getName());
+				pstmt.setString(2,vo.getGender());
+				pstmt.setString(3,vo.getPassword());
+				pstmt.setString(4,vo.getEmail());
+			}	
 								
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

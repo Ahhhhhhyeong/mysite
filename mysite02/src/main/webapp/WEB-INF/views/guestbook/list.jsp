@@ -51,7 +51,7 @@
 									href="<%=request.getContextPath() %>/guestbook?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
 							</tr>
 							<tr>
-								<td colspan=4><%=vo.getMessage()%></td>
+								<td colspan=4><%=vo.getMessage().replaceAll("\n", "<br/>")%></td>
 							</tr>
 						</table> <%
 						 }

@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import com.douzone.mysite.repository.UserRepository;
 import com.douzone.mysite.vo.UserVo;
@@ -34,6 +33,7 @@ public class UpdateFormAction implements Action {
 		//----------------------------------------------------------------
 		
 		UserVo userVo = new UserRepository().findByNo(authUser.getNo());
+		
 		request.setAttribute("userVo", userVo);
 		WebUtil.forward(request, response, "user/updateform");
 	}

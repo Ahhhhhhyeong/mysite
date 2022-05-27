@@ -16,7 +16,36 @@ FROM
 WHERE
     email = 'admin@mysite.com'
         AND password = '1234';
+ 
 
+ 
+ -- findByNo
+ SELECT 
+	no, name, email, gender
+FROM
+    user
+WHERE
+    email = 'admin@mysite.com'
+        AND password = '1234';
+        
+ SELECT 
+	no, name, email, gender
+FROM
+    user
+WHERE
+   no = 5;
+        
+        
+        
+UPDATE user 
+SET 
+    name = '김가나',
+    gender = 'female',
+    password = '1234'
+WHERE
+    email = '';
+
+        
 
 -- GuestbookRepository
 select * from guestbook;
@@ -30,5 +59,3 @@ order by @ROWNUM desc;
 
 select name, password, message, regdate, no
  from guestbook;
- 
- 

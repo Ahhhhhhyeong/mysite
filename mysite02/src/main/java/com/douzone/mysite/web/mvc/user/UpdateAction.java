@@ -36,7 +36,7 @@ public class UpdateAction implements Action {
 		String name = request.getParameter("name");
 		String password= request.getParameter("password");
 		String gender = request.getParameter("gender");
-		String email = request.getParameter("email");
+		String email = authUser.getEmail();
 		
 		UserVo vo =new UserVo();
 		vo.setName(name);

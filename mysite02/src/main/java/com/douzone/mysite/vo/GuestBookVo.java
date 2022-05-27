@@ -2,7 +2,6 @@ package com.douzone.mysite.vo;
 
 public class GuestBookVo {
 	private long no;
-	private long rowNum;
 	private String name;
 	private String password;
 	private String message;
@@ -11,16 +10,10 @@ public class GuestBookVo {
 	
 	@Override
 	public String toString() {
-		return "GuestBookVo [no=" + no + ", rowNum=" + rowNum + ", name=" + name + ", password=" + password
+		return "GuestBookVo [no=" + no + ", " + ", name=" + name + ", password=" + password
 				+ ", message=" + message + ", regdate=" + regdate + "]";
 	}
 	
-	public long getRowNum() {
-		return rowNum;
-	}
-	public void setRowNum(long rowNum) {
-		this.rowNum = rowNum;
-	}
 	
 	public long getNo() {
 		return no;

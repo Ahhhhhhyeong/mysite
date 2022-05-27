@@ -26,7 +26,6 @@ public class LoginAction implements Action {
 		UserVo authUser = new UserRepository().findByEmailAndPassword(vo);
 		if(authUser == null) {
 			// 로그인 실패
-			System.out.println("로그인 실패");
 			request.setAttribute("result", "fail");
 			request.setAttribute("email", email);
 			WebUtil.forward(request, response, "user/loginform");

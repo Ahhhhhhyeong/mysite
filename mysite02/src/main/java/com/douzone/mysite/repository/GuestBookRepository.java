@@ -13,7 +13,7 @@ import com.douzone.mysite.vo.GuestBookVo;
 
 
 public class GuestBookRepository {
-	public static List<GuestBookVo> findAll() {
+	public List<GuestBookVo> findAll() {
 		List<GuestBookVo> result = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -24,11 +24,9 @@ public class GuestBookRepository {
 			
 			String sql =
 				" SELECT  "
-				+ "    @ROWNUM := @ROWNUM + 1 AS ROWNUM, "
-				+ "    a.name, a.password, a.message, date_format(a.regdate, '%Y-%m-%d') as regdate, a.no "
-				+ "FROM (SELECT * FROM guestbook g order by g.no desc) a, "
-				+ "(SELECT @ROWNUM :=0) as b "
-				+ " order by @ROWNUM desc";
+				+ "  a.name, a.password, a.message, date_format(a.regdate, '%Y-%m-%d') as regdate, a.no "
+				+ "FROM guestbook a "
+				+ " order by no desc";
 			pstmt = connection.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -36,12 +34,11 @@ public class GuestBookRepository {
 			//6. 결과처리
 			while(rs.next()) {				
 				GuestBookVo vo = new GuestBookVo();
-				vo.setRowNum(rs.getLong(1));
-				vo.setName(rs.getString(2));
-				vo.setPassword(rs.getString(3));
-				vo.setMessage(rs.getString(4));
-				vo.setRegdate(rs.getString(5));
-				vo.setNo(rs.getLong(6));
+				vo.setName(rs.getString(1));
+				vo.setPassword(rs.getString(2));
+				vo.setMessage(rs.getString(3));
+				vo.setRegdate(rs.getString(4));
+				vo.setNo(rs.getLong(5));
 				
 				
 				result.add(vo);

@@ -247,7 +247,7 @@ public class BoardRepository extends BoardVo {
 			}
 			
 			connection = getConnection();
-			
+			// 여기 수정 해야됨
 			String sql = "INSERT INTO  "
 					+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
 					+ " select  ?, ?, 0, now(), ? , ?, ?, ? "

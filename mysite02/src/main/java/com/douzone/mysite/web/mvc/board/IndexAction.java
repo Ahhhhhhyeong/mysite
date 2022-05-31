@@ -1,6 +1,7 @@
 package com.douzone.mysite.web.mvc.board;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.core.FrameworkListener;
 import org.apache.tomcat.util.http.fileupload.util.LimitedInputStream;
 import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
 import org.eclipse.jdt.internal.compiler.lookup.ImplicitNullAnnotationVerifier;
@@ -21,7 +23,10 @@ public class IndexAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*--------------------------------------------------------------*/
 		String pageNum = request.getParameter("p");
+		String kwd = request.getParameter("kwd");
+		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
@@ -49,12 +54,13 @@ public class IndexAction implements Action {
 		
 		int totalBoard = new BoardRepository().countBoard();
 		request.setAttribute("totalBoard", totalBoard);
+		/*--------------------------------------------------------------*/		
+		List<BoardVo> list = new ArrayList<BoardVo>(); 
 				
-		List<BoardVo> list = new BoardRepository().findAll(currentPage);
+		list = new BoardRepository().findAll(currentPage, kwd);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pages", pages);
-		
 		
 		
 		WebUtil.forward(request, response, "board/index");

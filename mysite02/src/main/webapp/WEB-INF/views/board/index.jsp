@@ -14,10 +14,14 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<!-- 검색기능 -->
+				<form id="search_form" action='${pageContext.request.contextPath }/board' method="get">
+					<input type="text" id="kwd" name="kwd" value=''>
 					<input type="submit" value="찾기">
 				</form>
+				<!-- 검색기능 끝 -->
+				
+				<!-- 게시글 테이블 -->
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>
@@ -60,6 +64,7 @@
 					</tr>					
 					</c:forEach>			
 				</table>
+				<!-- 게시글 테이블 끝 -->
 				
 				<!-- pager 추가 -->
 				<div class="pager" >

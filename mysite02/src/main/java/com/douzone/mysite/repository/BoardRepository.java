@@ -14,25 +14,36 @@ import com.douzone.mysite.vo.BoardVo;
 
 public class BoardRepository extends BoardVo {
 
-	public List<BoardVo> findAll(int pages) {
+	public List<BoardVo> findAll(int pages, String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			connection = getConnection();
-			
-			String sql =
-				" SELECT a.no, a.title, a.contents, a.hit, "
-				+ "a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no "
-				+ " FROM board a , user b "
-				+ " WHERE a.user_no = b.no "
-				+ " ORDER BY g_no desc, o_no asc, depth asc  "
-				+ " limit ?, 5";
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, (pages - 1) * 5);	
-			
+			connection = getConnection();		
+			if(kwd != null) {
+				String sql =
+						" SELECT a.no, a.title, a.contents, a.hit, "
+						+ "a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no "
+						+ " FROM board a , user b "
+						+ " WHERE a.user_no = b.no"
+						+ " AND a.title like ? "
+						+ " ORDER BY g_no desc, o_no asc, depth asc  "
+						+ " limit 5";			
+					pstmt = connection.prepareStatement(sql);
+					pstmt.setString(1, "%" + kwd + "%");
+			}else {		
+				String sql =
+					" SELECT a.no, a.title, a.contents, a.hit, "
+					+ "a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no "
+					+ " FROM board a , user b "
+					+ " WHERE a.user_no = b.no "
+					+ " ORDER BY g_no desc, o_no asc, depth asc  "
+					+ " limit ?, 5";			
+				pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, (pages - 1) * 5);	
+			}
 			rs = pstmt.executeQuery();
 			
 			//6. 결과처리

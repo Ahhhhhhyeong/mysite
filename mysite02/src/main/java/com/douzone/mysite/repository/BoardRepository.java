@@ -1,7 +1,5 @@
 package com.douzone.mysite.repository;
 
-import java.lang.System.Logger;
-import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +12,10 @@ import com.douzone.mysite.vo.BoardVo;
 
 public class BoardRepository extends BoardVo {
 
+	/* ------------------------------------
+	 * 게시판 초기화면
+	 * 페이징, 게시글 리스트(테이블) 구해옴
+	 -------------------------------------- */
 	public List<BoardVo> findAll(int pages, String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;
@@ -83,6 +85,7 @@ public class BoardRepository extends BoardVo {
 		return result;	
 	}
 
+	@SuppressWarnings("resource")
 	public List<BoardVo> findNo(int no) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;

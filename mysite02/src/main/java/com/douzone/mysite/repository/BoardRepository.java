@@ -14,7 +14,7 @@ import com.douzone.mysite.vo.BoardVo;
 
 public class BoardRepository extends BoardVo {
 
-	public List<BoardVo> findAll() {
+	public List<BoardVo> findAll(int pages) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -28,9 +28,11 @@ public class BoardRepository extends BoardVo {
 				+ "a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no "
 				+ " FROM board a , user b "
 				+ " WHERE a.user_no = b.no "
-				+ " ORDER BY g_no desc, o_no";
+				+ " ORDER BY g_no desc, o_no asc, depth asc  "
+				+ " limit ?, 5";
 			pstmt = connection.prepareStatement(sql);
-						
+			pstmt.setLong(1, (pages - 1) * 5);	
+			
 			rs = pstmt.executeQuery();
 			
 			//6. 결과처리
@@ -84,20 +86,20 @@ public class BoardRepository extends BoardVo {
 				+ "a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no "
 				+ " FROM board a , user b "
 				+ " WHERE a.user_no = b.no "
-				+ " AND a.no = ? "
-				+ " ORDER BY g_no desc, o_no";
+				+ " AND a.no = ? ";
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, no);
 						
 			rs = pstmt.executeQuery();
 			
-			
+			long hit = 0;
 			while(rs.next()) {				
 				BoardVo vo = new BoardVo();
 				vo.setNo(rs.getLong(1));
 				vo.setTitle(rs.getString(2));
 				vo.setContents(rs.getString(3));
-				vo.setHit(rs.getLong(4));
+				hit = rs.getLong(4);
+				vo.setHit(hit);
 				vo.setReg_date(rs.getString(5));
 				vo.setG_no(rs.getLong(6));
 				vo.setO_no(rs.getLong(7));
@@ -107,6 +109,15 @@ public class BoardRepository extends BoardVo {
 								
 				result.add(vo);
 			}
+			
+			String updateHit = "UPDATE board SET hit = ? "
+					+ " WHERE no = ? ";
+			pstmt = connection.prepareStatement(updateHit);
+			pstmt.setLong(1, hit+1);
+			pstmt.setLong(2, no);
+			
+			pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} finally {
@@ -127,6 +138,45 @@ public class BoardRepository extends BoardVo {
 		
 		return result;	
 	}
+	
+	public int countBoard() {
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			connection = getConnection();
+			
+			String sql =
+				" SELECT count(*) FROM board";
+			pstmt = connection.prepareStatement(sql);
+						
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}	
 
 	public void insert(BoardVo vo) {
 		Connection connection = null;
@@ -168,31 +218,38 @@ public class BoardRepository extends BoardVo {
 	public void insertComent(BoardVo vo) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-				
+		System.out.println("몇 번 불리는거야?");
 		try {
 			String title = vo.getTitle();
 			String contents = vo.getContents();
 			long g_no = vo.getG_no();
-			long o_no = vo.getO_no() + 1;
+			long o_no = vo.getO_no();
 			long depth = vo.getDepth();
 			long userNo = vo.getUser_no();
+			long no = vo.getNo();
+			
+			if(o_no == 1) {
+				o_no += 1;
+			}
 			
 			connection = getConnection();
-			System.out.println(title + contents + g_no + o_no + depth + userNo);
+			
 			String sql = "INSERT INTO  "
 					+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
 					+ " select  ?, ?, 0, now(), ? , ?, ?, ? "
-					+ " from board";
+					+ " from board where no = ?";
 			pstmt = connection.prepareStatement(sql);			
 			
 			pstmt.setString(1, title);
 			pstmt.setString(2, contents);
 			pstmt.setLong(3, g_no);
 			pstmt.setLong(4, o_no);
-			pstmt.setLong(5, depth);
+			pstmt.setLong(5, depth+1);
 			pstmt.setLong(6, userNo);
+			pstmt.setLong(7, no);
 								
 			pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} finally {
@@ -250,7 +307,7 @@ public class BoardRepository extends BoardVo {
 				
 		try {
 			connection = getConnection();
-				
+			
 			String sql = " UPDATE board SET "
 					+ " title = ?  "
 					+ " , contents = ? "
@@ -258,7 +315,8 @@ public class BoardRepository extends BoardVo {
 			pstmt = connection.prepareStatement(sql);			
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
-			pstmt.setLong(3, vo.getNo());
+			pstmt.setLong(3, vo.getNo());			
+			
 								
 			pstmt.executeUpdate();
 			
@@ -290,5 +348,7 @@ public class BoardRepository extends BoardVo {
 			System.out.println("ERROR: " + e);
 		}
 		return connection;		
-	}	
+	}
+
+
 }

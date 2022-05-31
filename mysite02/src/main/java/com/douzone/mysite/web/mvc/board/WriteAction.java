@@ -34,6 +34,7 @@ public class WriteAction implements Action {
 		//-----------------------------------------------------
 		
 		// 답글 구분
+		String no = request.getParameter("no");
 		String gno = request.getParameter("gno");
 		String ono = request.getParameter("ono");
 		String depth = request.getParameter("depth");	
@@ -53,6 +54,7 @@ public class WriteAction implements Action {
 			return;
 		}
 		
+		vo.setNo(Integer.parseInt(no));
 		vo.setG_no(Integer.parseInt(gno));
 		vo.setO_no(Integer.parseInt(ono));
 		vo.setDepth(Integer.parseInt(depth));

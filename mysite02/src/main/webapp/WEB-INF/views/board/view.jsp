@@ -15,6 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board" class="board-form">
+					<c:set var='newline' value='\n' />
 					<c:forEach items='${list }' var='vo' varStatus='status' >
 						<table class="tbl-ex">				
 							<tr>

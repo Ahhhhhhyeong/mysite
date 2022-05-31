@@ -8,12 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.douzone.mysite.repository.BoardRepository;
-import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.WebUtil;
 
-public class WriteAction implements Action {
+public class DeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,47 +20,23 @@ public class WriteAction implements Action {
 		// 접근 제어
 		HttpSession session = request.getSession();
 		if(session == null) {
-			WebUtil.redirect(request, response, request.getContextPath());
+			WebUtil.redirect(request, response, request.getContextPath()+ "/board");
 			return;
 		}
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		// 접근 제어
 		if(authUser == null) {
-			WebUtil.redirect(request, response, request.getContextPath());
+			WebUtil.redirect(request, response, request.getContextPath()+ "/board");
 			return;
-		}		
+		}					
 		//-----------------------------------------------------
 		
-		// 답글 구분
-		String gno = request.getParameter("gno");
-		String ono = request.getParameter("ono");
-		String depth = request.getParameter("depth");	
-		
-		String title = request.getParameter("title");
-		String contents = request.getParameter("content");
-		
-		BoardVo vo = new BoardVo();
-		vo.setTitle(title);
-		vo.setContents(contents);	
-		vo.setUser_no(authUser.getNo());
-		
-		
-		if("".equals(gno) || "".equals(ono) || "".equals(depth)) {
-			new BoardRepository().insert(vo);
-			WebUtil.redirect(request, response, request.getContextPath() + "/board");
-			return;
-		}
-		
-		vo.setG_no(Integer.parseInt(gno));
-		vo.setO_no(Integer.parseInt(ono));
-		vo.setDepth(Integer.parseInt(depth));
-		
-		new BoardRepository().insertComent(vo);
+		long no = Integer.parseInt(request.getParameter("no"));
+	
+		new BoardRepository().delete(no, authUser.getNo());
 		
 		WebUtil.redirect(request, response, request.getContextPath() + "/board");
-		
-			
 	}
 
 }

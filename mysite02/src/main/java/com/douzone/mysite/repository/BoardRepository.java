@@ -1,5 +1,7 @@
 package com.douzone.mysite.repository;
 
+import java.lang.System.Logger;
+import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -131,13 +133,20 @@ public class BoardRepository extends BoardVo {
 		PreparedStatement pstmt = null;
 				
 		try {
-			connection = getConnection();
-				
-			String sql = "INSERT INTO "
-					+ " board VALUES "
-					+ "(null, ?, ?, 0, now(), ?, ?, ?, ?);";
-			pstmt = connection.prepareStatement(sql);			
+			String title = vo.getTitle();
+			String contents = vo.getContents();		
+			long userNo = vo.getUser_no();
 			
+			connection = getConnection();
+			
+			String sql = "INSERT INTO  "
+					+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
+					+ " select ?, ?, 0, now(), MAX(g_no) + 1 , 1, 0, ? "
+					+ " from board";
+			pstmt = connection.prepareStatement(sql);			
+			pstmt.setString(1, title);
+			pstmt.setString(2, contents);
+			pstmt.setLong(3, userNo);
 								
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -156,6 +165,119 @@ public class BoardRepository extends BoardVo {
 		}		
 	}
 	
+	public void insertComent(BoardVo vo) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+				
+		try {
+			String title = vo.getTitle();
+			String contents = vo.getContents();
+			long g_no = vo.getG_no();
+			long o_no = vo.getO_no() + 1;
+			long depth = vo.getDepth();
+			long userNo = vo.getUser_no();
+			
+			connection = getConnection();
+			System.out.println(title + contents + g_no + o_no + depth + userNo);
+			String sql = "INSERT INTO  "
+					+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
+					+ " select  ?, ?, 0, now(), ? , ?, ?, ? "
+					+ " from board";
+			pstmt = connection.prepareStatement(sql);			
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, contents);
+			pstmt.setLong(3, g_no);
+			pstmt.setLong(4, o_no);
+			pstmt.setLong(5, depth);
+			pstmt.setLong(6, userNo);
+								
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		
+	}
+
+
+	public void delete(long no, long userNo) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+				
+		try {
+			connection = getConnection();
+				
+			String sql = " DELETE FROM board "
+					+ " WHERE no = ? "
+					+ " AND user_no = ?";
+			pstmt = connection.prepareStatement(sql);			
+			pstmt.setLong(1, no);
+			pstmt.setLong(2, userNo);
+								
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+	}
+	
+	public void update(BoardVo vo) {
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+				
+		try {
+			connection = getConnection();
+				
+			String sql = " UPDATE board SET "
+					+ " title = ?  "
+					+ " , contents = ? "
+					+ " WHERE no = ?";
+			pstmt = connection.prepareStatement(sql);			
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getNo());
+								
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+	
 	private Connection getConnection() throws SQLException{
 		Connection connection = null;
 		try {
@@ -168,9 +290,5 @@ public class BoardRepository extends BoardVo {
 			System.out.println("ERROR: " + e);
 		}
 		return connection;		
-	}
-
-
-
-	
+	}	
 }

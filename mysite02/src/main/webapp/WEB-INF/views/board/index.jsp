@@ -28,21 +28,38 @@
 						<th>&nbsp;</th>
 					</tr>
 					<c:set var='count' value='${fn:length(list) }' />
-					<c:forEach items='${list }' var='vo' varStatus='status'>
-						<tr>
-							<td>${count-status.index }</td>
-							<td style="text-align:left; padding-left:0px">
-								<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
-							</td>
+					<c:set var='newline' value='\n' />
+					<c:forEach items='${list }' var='vo' varStatus='status'>					
+					<tr>
+						<td>${count-status.index }</td>
+							<c:choose>
+								<c:when test="${vo.o_no eq 1 }">									
+									<td style="text-align:left; padding-left:0px">
+										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+									</td>
+								</c:when>
+								<c:when test="${vo.o_no > 1 }">
+									<td style="text-align:left; padding-left:10px">
+										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
+										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+									</td>
+								</c:when>
+								<c:otherwise>
+									<td  style="text-align:left; padding-left:20px">
+										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
+										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+									</td>
+								</c:otherwise>
+							</c:choose>	
 							<td>${vo.user_name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.reg_date }</td>
 							<td>
-								<c:if test="${vo.user_no = authUser.no }">
-									<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>							
-								</c:if>
+							 	<c:if test="${vo.user_no eq authUser.no }">
+							 		<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
+							 	</c:if>		
 							</td>
-						</tr>					
+					</tr>					
 					</c:forEach>			
 				</table>
 				

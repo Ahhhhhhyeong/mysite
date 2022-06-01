@@ -232,7 +232,7 @@ public class BoardRepository extends BoardVo {
 	public void insertComent(BoardVo vo) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		System.out.println("몇 번 불리는거야?");
+		
 		try {
 			String title = vo.getTitle();
 			String contents = vo.getContents();
@@ -258,7 +258,7 @@ public class BoardRepository extends BoardVo {
 			pstmt.setString(2, contents);
 			pstmt.setLong(3, g_no);
 			pstmt.setLong(4, o_no);
-			pstmt.setLong(5, depth+1);
+			pstmt.setLong(5, depth + 1);
 			pstmt.setLong(6, userNo);
 			pstmt.setLong(7, no);
 								

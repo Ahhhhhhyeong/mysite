@@ -38,19 +38,19 @@
 						<td>${count-status.index }</td>
 								<c:if test="${vo.o_no eq 1 }">									
 									<td style="text-align:left; padding-left:0px">
-										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board?p=${param.p }&a=view&no=${vo.no }">${vo.title }</a>
 									</td>
 								</c:if>
 								<c:if test="${vo.o_no > 1  && vo.depth eq 1}">
 									<td style="text-align:left; padding-left:10px">
 										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
-										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board?p=${param.p }&a=view&no=${vo.no }">${vo.title }</a>
 									</td>
 								</c:if>
 								<c:if test='${vo.depth > 1 }'>
 									<td  style="text-align:left; padding-left:20px">
 										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
-										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board?p=${param.p }&a=view&no=${vo.no }">${vo.title }</a>
 									</td>
 								</c:if>
 							<td>${vo.user_name }</td>

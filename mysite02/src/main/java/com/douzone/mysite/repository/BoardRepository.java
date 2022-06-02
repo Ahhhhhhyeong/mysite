@@ -242,25 +242,39 @@ public class BoardRepository extends BoardVo {
 			long userNo = vo.getUser_no();
 			long no = vo.getNo();
 			
-			if(o_no == 1) {
-				o_no += 1;
-			}
-			
 			connection = getConnection();
+			if(o_no == 1) {
+				String sql = "INSERT INTO  "
+						+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
+						+ " select  ?, ?, 0, now(), ? , MAX(o_no)+1, ?, ? "
+						+ " from board where no = ?";
+				pstmt = connection.prepareStatement(sql);			
+				
+				pstmt.setString(1, title);
+				pstmt.setString(2, contents);
+				pstmt.setLong(3, g_no);
+				pstmt.setLong(4, depth+1);
+				pstmt.setLong(5, userNo);
+				pstmt.setLong(6, no);
+				
+			}
+			else {
+				String sql = "INSERT INTO  "
+						+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
+						+ " select  ?, ?, 0, now(), ? , ?, ?, ? "
+						+ " from board where no = ?";
+				pstmt = connection.prepareStatement(sql);			
+				
+				pstmt.setString(1, title);
+				pstmt.setString(2, contents);
+				pstmt.setLong(3, g_no);
+				pstmt.setLong(4, o_no);
+				pstmt.setLong(5, depth+1);
+				pstmt.setLong(6, userNo);
+				pstmt.setLong(7, no);
+				
+			}
 			// 여기 수정 해야됨
-			String sql = "INSERT INTO  "
-					+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
-					+ " select  ?, ?, 0, now(), ? , ?, ?, ? "
-					+ " from board where no = ?";
-			pstmt = connection.prepareStatement(sql);			
-			
-			pstmt.setString(1, title);
-			pstmt.setString(2, contents);
-			pstmt.setLong(3, g_no);
-			pstmt.setLong(4, o_no);
-			pstmt.setLong(5, depth+1);
-			pstmt.setLong(6, userNo);
-			pstmt.setLong(7, no);
 								
 			pstmt.executeUpdate();
 			

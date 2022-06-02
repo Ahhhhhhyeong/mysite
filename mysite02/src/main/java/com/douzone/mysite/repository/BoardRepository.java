@@ -205,7 +205,7 @@ public class BoardRepository extends BoardVo {
 			
 			String sql = "INSERT INTO  "
 					+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
-					+ " select ?, ?, 0, now(), MAX(g_no) + 1 , 1, 0, ? "
+					+ " select ?, ?, 0, now(), ifnull(MAX(g_no) + 1, 1) , 1, 0, ? "
 					+ " from board";
 			pstmt = connection.prepareStatement(sql);			
 			pstmt.setString(1, title);

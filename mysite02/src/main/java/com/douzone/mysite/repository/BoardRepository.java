@@ -229,10 +229,11 @@ public class BoardRepository extends BoardVo {
 		}		
 	}
 	
+	@SuppressWarnings("null")
 	public void insertComent(BoardVo vo) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		System.out.println("몇 번 불리는거야?");
+		
 		try {
 			String title = vo.getTitle();
 			String contents = vo.getContents();
@@ -242,7 +243,7 @@ public class BoardRepository extends BoardVo {
 			long userNo = vo.getUser_no();
 			long no = vo.getNo();
 			
-			connection = getConnection();
+
 			if(o_no == 1) {
 				String sql = "INSERT INTO  "
 						+ " board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) "
@@ -273,9 +274,8 @@ public class BoardRepository extends BoardVo {
 				pstmt.setLong(6, userNo);
 				pstmt.setLong(7, no);
 				
-			}
-			// 여기 수정 해야됨
-								
+			}	
+			
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

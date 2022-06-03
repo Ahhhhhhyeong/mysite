@@ -96,7 +96,7 @@
 						<c:when test="${empty authUser }">
 						</c:when>
 						<c:otherwise>						
-							<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+							<a href="${pageContext.request.contextPath }/board?p=${param.p }&a=writeform" id="new-book">글쓰기</a>
 						</c:otherwise>
 					</c:choose>					
 				</div>				

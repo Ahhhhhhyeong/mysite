@@ -17,12 +17,13 @@ public class ListAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		List<GuestBookVo> list = new ArrayList<>();
 		list = new GuestBookRepository().findAll();
 		
 		request.setAttribute("list", list);
 		
-		WebUtil.forward(request, response, "guestbook/list");
+		WebUtil.forward(request, response, "guestbook/list?p=1");
 	}
 
 }

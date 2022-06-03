@@ -42,6 +42,8 @@ public class WriteAction implements Action {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
 		
+		int page = Integer.parseInt(request.getParameter("p"));
+		
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
 		vo.setContents(contents);	
@@ -61,7 +63,7 @@ public class WriteAction implements Action {
 		
 		new BoardRepository().insertComent(vo);
 		
-		WebUtil.redirect(request, response, request.getContextPath() + "/board");
+		WebUtil.redirect(request, response, request.getContextPath() + "/board?p="+page);
 		
 			
 	}

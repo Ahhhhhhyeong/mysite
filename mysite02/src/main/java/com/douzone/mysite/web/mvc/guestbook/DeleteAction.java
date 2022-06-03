@@ -16,11 +16,13 @@ public class DeleteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int value = Integer.parseInt(request.getParameter("no"));
-		String password = request.getParameter("password");			
-				
+		String password = request.getParameter("password");	
+		int page = Integer.parseInt(request.getParameter("p"));
+		page = page == 0? 1 : page;
+		
 		new GuestBookRepository().delete((long)value, password);
 		
-		WebUtil.redirect(request, response, request.getContextPath() + "/guestbook?a=list");
+		WebUtil.redirect(request, response, request.getContextPath() + "/guestbook?&a=list");
 
 	}
 

@@ -20,6 +20,7 @@
 					<input type = "hidden" name = 'gno' value = '${param.gno }'/>
 					<input type = "hidden" name = 'ono' value = '${param.ono }'/>
 					<input type = "hidden" name = 'depth' value = '${param.depth }'/>
+					<input type = "hidden" name = 'p' value = '${param.p }'/>
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -36,7 +37,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?a=index">취소</a>
+						<a href="${pageContext.request.contextPath }/board?p=${param.p }&a=index">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

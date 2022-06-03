@@ -26,11 +26,13 @@ UPDATE board SET
  , contents = 'pie 글쓰기 수정'
  WHERE no = 4;
  
+  select  'title', 'contents', 0, now(), 1, MAX(o_no) + 1 , 2 from board
+  where g_no = 11;
  
  select a.no, a.title, a.contents, a.hit, 
 a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no
  from board a , user b	
  where a.user_no = b.no
- order by g_no desc, o_no asc, depth asc;
- limit 1, 5;
- 
+ AND a.title like '%%'
+ order by g_no desc, o_no asc, depth asc
+ limit 0, 5;

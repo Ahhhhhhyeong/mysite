@@ -24,13 +24,5 @@ public class GuestbookService {
 	
 	public boolean addMessage(GuestBookVo vo) {
 		return guestBookRepository.insert(vo);
-//		try {
-//			guestBookRepository.insert(vo);
-//		} catch (Exception e) {
-//			System.out.println("!!!!!!!ERROR!!!!!!!!!!");
-//		}
-//		return true;
-	}
-
-		
+	}		
 }

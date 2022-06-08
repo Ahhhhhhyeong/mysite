@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.UserVo;
@@ -13,6 +16,8 @@ import com.douzone.mysite.vo.UserVo;
 
 @Repository
 public class UserRepository {
+	@Autowired
+	private DataSource dataSource;
 	
 	public UserVo findByEmailAndPassword(UserVo vo) {
 		UserVo result = null;
@@ -21,7 +26,7 @@ public class UserRepository {
 		ResultSet rs = null;
 		
 		try {
-			connection = getConnection();
+			connection = dataSource.getConnection();
 			
 			String sql =
 				" SELECT no, name "
@@ -71,7 +76,7 @@ public class UserRepository {
 		ResultSet rs = null;
 		
 		try {
-			connection = getConnection();
+			connection = dataSource.getConnection();
 			
 			String sql =
 				" SELECT "
@@ -122,7 +127,7 @@ public class UserRepository {
 		PreparedStatement pstmt = null;
 				
 		try {
-			connection = getConnection();
+			connection = dataSource.getConnection();
 				
 			String sql = " insert  "
 					+ " into user "
@@ -160,7 +165,7 @@ public class UserRepository {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			
 			if("".equals(vo.getPassword())) {
 				String sql =
@@ -210,7 +215,7 @@ public class UserRepository {
 		PreparedStatement pstmt = null;
 				
 		try {
-			connection = getConnection();
+			connection = dataSource.getConnection();
 				
 			String sql = " UPDATE user "
 					+ "SET  "
@@ -239,25 +244,5 @@ public class UserRepository {
 			}
 		}
 	}
-
-	
-	/* DataBase Connection */
-	private static Connection getConnection() throws SQLException{
-		Connection connection = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			
-			String url = "jdbc:mysql://192.168.10.41:3307/webdb?charset=utf8";
-			connection = DriverManager.getConnection(url, "webdb", "webdb");
-			
-		} catch (ClassNotFoundException e) {
-			System.out.println("ERROR: " + e);
-		}
-		return connection;		
-	}
-
-
-	
-	
 
 }

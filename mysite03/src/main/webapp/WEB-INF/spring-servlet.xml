@@ -24,8 +24,8 @@
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	<!-- 어노테이션 설정: 자동(Auto) || 빈 스캐닝(Bean Scanning) -->
-	<context:annotation-config />
-	<context:component-scan base-package="com.douzone.mysite.controller" />
 	
+	<!-- 어노테이션 설정: 자동(auto) 빈(Bean) 스캐닝(Scanning) -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.douzone.mysite.controller, com.douzone.mysite.exception" />
 </beans>

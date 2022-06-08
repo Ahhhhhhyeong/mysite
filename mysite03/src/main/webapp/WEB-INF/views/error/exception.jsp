@@ -10,6 +10,8 @@
 </head>
 <body>
 	<h1>Exception Occurs</h1>
-	
+	<p style="color: red; font-weight:bold">
+	${exception }
+	</p>
 </body>
 </html>

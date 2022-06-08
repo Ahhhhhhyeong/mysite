@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.douzone.mysite.exception.GuestbookRepositoryException;
 import com.douzone.mysite.vo.GuestBookVo;
 
 
@@ -66,7 +67,7 @@ public class GuestBookRepository {
 		return result;		
 	}
 	
-	public static boolean insert(GuestBookVo vo) {
+	public static boolean insert(GuestBookVo vo){
 		boolean result = false;
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -86,7 +87,8 @@ public class GuestBookRepository {
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (SQLException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
+			//System.out.println("드라이버 로딩 실패:" + e);
+			throw new GuestbookRepositoryException(e.toString());
 		} finally {
 			try {
 				if(pstmt != null) {

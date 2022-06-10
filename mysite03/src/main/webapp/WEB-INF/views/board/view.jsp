@@ -35,15 +35,15 @@
 							</tr>
 						</table>
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath }/board?p=${param.p }">글목록</a>
+							<a href="${pageContext.request.contextPath }/board">글목록</a>
 							<c:choose>
 								<c:when test="${empty authUser }"></c:when>
 								<c:when test="${authUser.no eq vo.user_no }">
-									<a href="${pageContext.request.contextPath }/board?a=modifyform&p=${param.p }&no=${vo.no}">글수정</a>
-									<a href="${pageContext.request.contextPath }/board?a=writeform&p=${param.p }&no=${vo.no}&gno=${vo.g_no}&ono=${vo.o_no}&depth=${vo.depth}">답글달기</a>
+									<a href="${pageContext.request.contextPath }/board/modifyform?&no=${vo.no}">글수정</a>
+									<a href="${pageContext.request.contextPath }/board/writeform?&no=${vo.no}&gno=${vo.g_no}&ono=${vo.o_no}&depth=${vo.depth}">답글달기</a>
 								</c:when>
 								<c:otherwise>
-									<a href="${pageContext.request.contextPath }/board?a=writeform&p=${param.p }&no=${vo.no}&gno=${vo.g_no}&ono=${vo.o_no}&depth=${vo.depth}">답글달기</a>																							
+									<a href="${pageContext.request.contextPath }/board/writeform?no=${vo.no}&gno=${vo.g_no}&ono=${vo.o_no}&depth=${vo.depth}">답글달기</a>																							
 								</c:otherwise>
 							</c:choose>
 						</div>

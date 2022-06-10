@@ -3,11 +3,12 @@
 <mapper namespace="board">
 	<select id="findByNo" parameterType="long" resultType="boardvo">
 		<![CDATA[
-			select a.no, a.title, a.contents, a.reg_date, a.hit, a.g_no, a.o_no, a.depth, b.no, b.name
+			select a.no, a.title, a.contents, a.reg_date,
+				 a.hit, a.g_no, a.o_no, a.depth, a.user_no, b.name
 				from board a, user b
 			where a.user_no = b.no 
 			and a.no=#{no }
-		]]>		
+		]]>	
 	</select>
 
 	<select id="findAll" parameterType="map"  resultType="boardvo">
@@ -45,7 +46,7 @@
 	
 	<update id="updateHit" parameterType="map">
 			<![CDATA[
-				UPDATE board SET hit = #{hit }
+				UPDATE board SET hit = hit + 1
 					WHERE no = #{no }
 			]]>
 	</update>

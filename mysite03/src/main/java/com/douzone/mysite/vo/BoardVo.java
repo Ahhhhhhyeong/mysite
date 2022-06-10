@@ -11,7 +11,7 @@ public class BoardVo {
 	private long o_no;
 	private long depth;
 	private long user_no;
-	private String user_name;
+	private String name;
 	
 	
 	public long getNo() {
@@ -78,9 +78,9 @@ public class BoardVo {
 	}
 	
 	public String getUser_name() {
-		return user_name;
+		return name;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUser_name(String name) {
+		this.name = name;
 	}
 }

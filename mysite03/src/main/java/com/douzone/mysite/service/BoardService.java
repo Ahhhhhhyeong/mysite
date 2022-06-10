@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ import com.douzone.mysite.vo.BoardVo;
 public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	private static final String COOKIE_NAME = "hit";
 	
 	public List<BoardVo> getPageList(int page, String kwd) {
 		return boardRepository.findAll(page, kwd);
@@ -46,6 +51,15 @@ public class BoardService {
 		map.put("lastPage", lastPage);
 		return map;
 	}
+
+	public BoardVo getView(long no) {
+		return boardRepository.findByNo(no);	
+	}
+
+	public void updateHit(Long no) {
+		boardRepository.updateHit(no);
+	}
+
 
 	
 	

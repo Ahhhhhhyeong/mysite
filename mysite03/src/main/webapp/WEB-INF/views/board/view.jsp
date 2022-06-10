@@ -16,7 +16,6 @@
 		<div id="content">
 			<div id="board" class="board-form">
 					<c:set var='newline' value='\n' />
-					<c:forEach items='${list }' var='vo' varStatus='status' >
 						<table class="tbl-ex">				
 							<tr>
 								<th colspan="2">글보기</th>
@@ -37,7 +36,6 @@
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath }/board">글목록</a>
 							<c:choose>
-								<c:when test="${empty authUser }"></c:when>
 								<c:when test="${authUser.no eq vo.user_no }">
 									<a href="${pageContext.request.contextPath }/board/modifyform?&no=${vo.no}">글수정</a>
 									<a href="${pageContext.request.contextPath }/board/writeform?&no=${vo.no}&gno=${vo.g_no}&ono=${vo.o_no}&depth=${vo.depth}">답글달기</a>
@@ -47,7 +45,6 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-					</c:forEach>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp">

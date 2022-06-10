@@ -38,19 +38,19 @@
 						<td>${count - status.index }</td>
 								<c:if test="${vo.o_no eq 1 }">									
 									<td style="text-align:left; padding-left:0px">
-										<a href="${pageContext.request.contextPath }/board?no=${vo.no }">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }">${vo.title }</a>
 									</td>
 								</c:if>
 								<c:if test="${vo.o_no > 1  && vo.depth eq 1}">
 									<td style="text-align:left; padding-left:10px">
 										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
-										<a href="${pageContext.request.contextPath }/board?no=${vo.no }">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }">${vo.title }</a>
 									</td>
 								</c:if>
 								<c:if test='${vo.depth > 1 }'>
 									<td  style="text-align:left; padding-left:20px">
 										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
-										<a href="${pageContext.request.contextPath }/board?no=${vo.no }">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }">${vo.title }</a>
 									</td>
 								</c:if>
 							<td>${vo.user_name }</td>
@@ -58,7 +58,7 @@
 							<td>${vo.reg_date }</td>
 							<td>
 							 	<c:if test="${vo.user_no eq authUser.no }">
-							 		<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a>
+							 		<a href="${pageContext.request.contextPath }/board/delete?no=${vo.no }" class="del">삭제</a>
 							 	</c:if>		
 							</td>
 					</tr>					

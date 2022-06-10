@@ -1,13 +1,17 @@
 package com.douzone.mysite.controller;
 
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.mysite.service.BoardService;
+import com.douzone.mysite.vo.BoardVo;
 
 @Controller
 @RequestMapping("/board")
@@ -30,6 +34,18 @@ public class BoardController {
 		
 		return "board/index";
 	}
+	
+	@RequestMapping("/view")
+	public String view(@RequestParam(value="no", required = true, defaultValue = "") long no,
+			Model model) {
+		BoardVo vo = boardService.getView(no);
+		boardService.updateHit(no);
+		
+		model.addAttribute("vo", vo);
+		return "board/view";
+	}
+	
+	
 	
 	
 }

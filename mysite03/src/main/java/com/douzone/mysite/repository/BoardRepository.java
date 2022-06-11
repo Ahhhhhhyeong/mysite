@@ -40,6 +40,14 @@ public class BoardRepository extends BoardVo {
     public void write(BoardVo vo) {
 		sqlSession.insert("board.insert", vo);
     }
+
+    public void delete(Long no) {
+		sqlSession.delete("board.delete", no);
+    }
+
+	public void update(BoardVo vo) {
+		sqlSession.update("board.update", vo);
+	}
 	
 	
 

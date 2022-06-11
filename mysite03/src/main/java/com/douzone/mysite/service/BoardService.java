@@ -60,8 +60,12 @@ public class BoardService {
 		boardRepository.write(vo);
 	}
 
+    public void delete(Long no) {
+		boardRepository.delete(no);
+    }
 
-	
-	
+	public void update(BoardVo vo) {
+		boardRepository.update(vo);
+	}
 	
 }

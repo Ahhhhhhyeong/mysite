@@ -68,17 +68,53 @@ public class BoardController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if(authUser == null){
 			return "redirect:/board";
-		}
+		}		
 		//////////////////////////////////////////////////
 		vo.setUser_no(authUser.getNo());
 		boardService.write(vo);
 		return "board/write";
 	}
 
-	
+	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
+	public String update(HttpSession session, 
+					@PathVariable(value="no", required = false) Long no,
+					Model model){	
+		/*******************접근제어**********************/
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null){
+			return "redirect:/board";
+		}									
+		//////////////////////////////////////////////////
+		BoardVo vo = boardService.getView(no);
+		model.addAttribute("vo", vo);
+		return "board/modify";
+	}
+
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String update(HttpSession session, BoardVo vo){
+		/*******************접근제어**********************/
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null){
+			return "redirect:/board";
+		}
+		//////////////////////////////////////////////////
+		boardService.update(vo);
+		return "redirect:/board";
+	}
 
 
+	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
+	public String delete(HttpSession session,
+						@PathVariable(value = "no", required = false) Long no){
+		/*******************접근제어**********************/
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null){
+			return "redirect:/board";
+		}	
+		//////////////////////////////////////////////////
+		boardService.delete(no);	
+		return "redirect:/board";
+	}
 
-	
 	
 }

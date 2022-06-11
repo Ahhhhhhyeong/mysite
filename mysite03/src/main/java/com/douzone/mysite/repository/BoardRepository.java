@@ -36,6 +36,10 @@ public class BoardRepository extends BoardVo {
 	public boolean updateHit(Long no) {
 		return sqlSession.update("board.updateHit", no) == 1;
 	}
+
+    public void write(BoardVo vo) {
+		sqlSession.insert("board.insert", vo);
+    }
 	
 	
 

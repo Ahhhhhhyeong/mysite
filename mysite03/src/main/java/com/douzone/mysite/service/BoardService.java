@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +15,6 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	private static final String COOKIE_NAME = "hit";
 	
 	public List<BoardVo> getPageList(int page, String kwd) {
 		return boardRepository.findAll(page, kwd);
@@ -58,6 +54,10 @@ public class BoardService {
 
 	public void updateHit(Long no) {
 		boardRepository.updateHit(no);
+	}
+
+	public void write(BoardVo vo) {
+		boardRepository.write(vo);
 	}
 
 

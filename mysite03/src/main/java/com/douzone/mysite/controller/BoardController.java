@@ -1,17 +1,19 @@
 package com.douzone.mysite.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.UserVo;
 
 @Controller
 @RequestMapping("/board")
@@ -45,7 +47,38 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@RequestMapping(value = {"/write", "/write/{no}"})
+	public String write(HttpSession session,
+				@PathVariable(value = "no", required = false) Long no,
+				Model model){
+		/*******************접근제어**********************/
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null){
+			return "redirect:/board";
+		}
+		//////////////////////////////////////////////////
+		BoardVo vo = boardService.getView(no);
+		model.addAttribute("vo", vo);
+		return "board/write";
+	}
 	
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String write(HttpSession session, BoardVo vo){
+		/*******************접근제어**********************/
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		if(authUser == null){
+			return "redirect:/board";
+		}
+		//////////////////////////////////////////////////
+		vo.setUser_no(authUser.getNo());
+		boardService.write(vo);
+		return "board/write";
+	}
+
+	
+
+
+
 	
 	
 }

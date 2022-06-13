@@ -16,7 +16,16 @@
 	<!-- Auto Proxy -->
 	<aop:aspectj-autoproxy />
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		
+		<!-- Argument Resolver -->
+		<mvc:argument-resolvers>
+			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+	
+	
+	
 	<!-- MVC Resource Mapping -->
 	<mvc:resources location="file:/mysite-uploads/" mapping="/assets/gallery/**" />	
 	

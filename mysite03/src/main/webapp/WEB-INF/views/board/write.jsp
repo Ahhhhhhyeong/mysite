@@ -15,24 +15,18 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
-
-					<input type = "hidden" name = 'no' value = '${vo.no }'/>
-					<input type = "hidden" name = 'gno' value = '${vo.gno }'/>
-					<input type = "hidden" name = 'ono' value = '${vo.ono }'/>
-					<input type = "hidden" name = 'depth' value = '${vo.depth }'/>
-
 					<c:choose>
-						<c:when test="${param.no eq null }">
-							<input type = "hidden" name = 'no' value = '0'/>
-							<input type = "hidden" name = 'g_no' value = '0'/>
-							<input type = "hidden" name = 'o_no' value = '0'/>
-							<input type = "hidden" name = 'depth' value = '0'/>
+						<c:when test='${param.no == "0"}'>
+							<input type = "text" name = 'no' value = '0'/>
+							<input type = "text" name = 'g_no' value = '0'/>
+							<input type = "text" name = 'o_no' value = '1'/>
+							<input type = "text" name = 'depth' value = '0'/>
 						</c:when>
 						<c:otherwise>
-							<input type = "hidden" name = 'no' value = '${param.no }'/>
-							<input type = "hidden" name = 'g_no' value = '${param.gno }'/>
-							<input type = "hidden" name = 'o_no' value = '${param.ono }'/>
-							<input type = "hidden" name = 'depth' value = '${param.depth }'/>
+							<input type = "text" name = 'no' value = '${vo.no }'/>
+							<input type = "text" name = 'g_no' value = '${vo.gno }'/>
+							<input type = "text" name = 'o_no' value = '${vo.ono }'/>
+							<input type = "text" name = 'depth' value = '${vo.depth }'/>
 						</c:otherwise>						
 					</c:choose>
 					
@@ -48,7 +42,7 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>

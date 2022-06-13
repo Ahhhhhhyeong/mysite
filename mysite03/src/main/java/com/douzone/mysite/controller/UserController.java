@@ -1,6 +1,5 @@
 package com.douzone.mysite.controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +51,6 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(@AuthUser  UserVo authUser, Model model) {
-		//UserVo authUser = (UserVo)session.getAttribute("authUser");
 		Long no = authUser.getNo();
 		UserVo userVo = userService.getUser(no);
 		
@@ -63,7 +61,6 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(@AuthUser  UserVo authUser, UserVo vo) {
-		//UserVo authUser = (UserVo)session.getAttribute("authUser");
 		vo.setNo(authUser.getNo());
 		userService.update(vo);
 		authUser.setName(vo.getName());

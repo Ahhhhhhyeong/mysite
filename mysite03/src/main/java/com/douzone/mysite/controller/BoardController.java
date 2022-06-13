@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.security.AuthUser;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
@@ -41,7 +42,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/view")
-	public String view(@RequestParam(value="no", required = true, defaultValue = "") long no,
+	public String view(@AuthUser UserVo authUser, @RequestParam(value="no", required = true, defaultValue = "") long no,
 			Model model) {
 		BoardVo vo = boardService.getView(no);
 		boardService.updateHit(no);
@@ -52,8 +53,9 @@ public class BoardController {
 	
 	@Auth
 	@RequestMapping(value = {"/write", "/write/{no}"})
-	public String write(@PathVariable(value = "no", required = false) Long no,
-				Model model){		
+	public String write(@AuthUser UserVo authUser, 
+		@PathVariable(value = "no", required = false) Long no,
+		Model model){		
 		if(no != null) {
 			BoardVo vo = boardService.getView(no);
 			model.addAttribute("vo", vo);			
@@ -63,16 +65,15 @@ public class BoardController {
 	
 	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(HttpSession session, BoardVo vo){
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+	public String write(@AuthUser UserVo authUser,BoardVo vo){
 		vo.setUser_no(authUser.getNo());
 		boardService.write(vo);
-		return "board/write";
+		return "redirect:/board";
 	}
 
 	@Auth
 	@RequestMapping(value = "/modify/{no}", method = RequestMethod.GET)
-	public String update(@PathVariable(value="no", required = false) Long no,
+	public String update(@AuthUser UserVo authUser, @PathVariable(value="no", required = false) Long no,
 					Model model){
 		BoardVo vo = boardService.getView(no);
 		model.addAttribute("vo", vo);
@@ -81,14 +82,14 @@ public class BoardController {
 
 	@Auth
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String update(BoardVo vo){
+	public String update(@AuthUser UserVo authUser,BoardVo vo){
 		boardService.update(vo);
 		return "redirect:/board";
 	}
 
 	@Auth
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
-	public String delete(@PathVariable(value = "no", required = false) Long no){
+	public String delete(@AuthUser UserVo authUser, @PathVariable(value = "no", required = false) Long no){
 		boardService.delete(no);	
 		return "redirect:/board";
 	}

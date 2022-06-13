@@ -12,7 +12,7 @@
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			SELECT no, name 
+			SELECT no, name, role 
 			FROM user
 			WHERE email = #{email } 
 			 AND password = #{password }

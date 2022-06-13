@@ -15,7 +15,6 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	
 	public List<BoardVo> getPageList(int page, String kwd) {
 		return boardRepository.findAll(page, kwd);
 	}
@@ -59,7 +58,10 @@ public class BoardService {
 	public void write(BoardVo vo) {
 		boardRepository.write(vo);
 	}
-
+	public void insert(BoardVo vo) {
+		boardRepository.insert(vo);
+	}
+	
     public void delete(Long no) {
 		boardRepository.delete(no);
     }

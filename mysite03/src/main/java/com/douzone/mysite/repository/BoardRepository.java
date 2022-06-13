@@ -49,6 +49,10 @@ public class BoardRepository extends BoardVo {
 		sqlSession.update("board.update", vo);
 	}
 	
+	public boolean insert(BoardVo vo) {
+		return sqlSession.insert("board.insert", vo) == 1; 
+	}
+	
 	
 
 }

@@ -28,8 +28,8 @@ public class SiteVo {
 	public String getProfileURL() {
 		return profileURL;
 	}
-	public void setProfileURL(String profile_url) {
-		this.profileURL = profile_url;
+	public void setProfileURL(String profileURL) {
+		this.profileURL = profileURL;
 	}
 	public String getDescription() {
 		return description;

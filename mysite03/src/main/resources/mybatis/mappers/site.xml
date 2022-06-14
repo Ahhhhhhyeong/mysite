@@ -10,21 +10,21 @@
 	
 	<update id="update" parameterType="sitevo">
 		<choose>
-			<when test='${profileURL eq null}'>
+			<when test='profileURL == null'>
 				<![CDATA[
 					UPDATE site SET title = #{title },
-									welcome_message = #{welecomeMessage },
+									welcome_message = #{welcomeMessage },
 									description = #{description }		
-					WHERE no = #{no }						
+					WHERE no = 1						
 				]]>
 			</when>
 			<otherwise>
 				<![CDATA[
 					UPDATE site SET title = #{title },
-									welcome_message = #{welecomeMessage },
+									welcome_message = #{welcomeMessage },
 									profile_url = #{profileURL },
 									description = #{description }
-					WHERE no = #{no }							
+					WHERE no = 1						
 				]]>
 			</otherwise>
 		</choose>

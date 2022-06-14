@@ -28,6 +28,16 @@
 	<!-- MVC Resource Mapping -->
 	<mvc:resources location="file:/mysite-uploads/" mapping="/assets/gallery/**" />	
 	
+	 <!-- 6. MessageSource -->
+	 <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	   <property name="basenames">
+	      <list>
+			<value>messages/messages_ko</value>			
+	      </list>
+	   </property>
+	 </bean>
+
+	
 	<!-- Interceptor -->
 	<mvc:interceptors>
 		<mvc:interceptor>

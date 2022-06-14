@@ -1,9 +1,14 @@
 package com.douzone.mysite.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,10 +30,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(UserVo vo) {
-		userService.join(vo);
-		return "redirect:/user/joinsuccess";
-	}
+	   public String join(@Valid UserVo vo, BindingResult result) {
+	      if(result.hasErrors()) {
+	         List<ObjectError> list = result.getAllErrors();
+	         for(ObjectError error : list) {
+	            System.out.println(error);
+	         }
+	         return "user/join";
+	      }
+	      
+	      // userService.join(vo);
+	      return "redirect:/user/joinsuccess";
+	   }
 
 	@RequestMapping("/joinsuccess")
 	public String joinSuccess() {
@@ -39,7 +52,7 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
-
+ 
 	@RequestMapping(value="/auth")
 	public void auth() {		
 	}

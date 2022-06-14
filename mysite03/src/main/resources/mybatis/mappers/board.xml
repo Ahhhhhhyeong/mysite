@@ -60,5 +60,20 @@
 		]]>		
 	</insert>
 	
+	<update id="update" parameterType="boardvo">
+			<![CDATA[
+				 UPDATE board SET 
+					title = #{title }  
+					, contents = #{contents }
+			 	WHERE no = #{no }
+			]]>
+	</update>
+	
+	
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM board WHERE no = #{no }
+		]]>
+	</delete>
 	
 </mapper>

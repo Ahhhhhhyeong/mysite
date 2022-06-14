@@ -9,9 +9,26 @@
 	</select>
 	
 	<update id="update" parameterType="sitevo">
-			<![CDATA[
-				
-			]]>
+		<choose>
+			<when test='${profileURL eq null}'>
+				<![CDATA[
+					UPDATE site SET title = #{title },
+									welcome_message = #{welecomeMessage },
+									description = #{description }		
+					WHERE no = #{no }						
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					UPDATE site SET title = #{title },
+									welcome_message = #{welecomeMessage },
+									profile_url = #{profileURL },
+									description = #{description }
+					WHERE no = #{no }							
+				]]>
+			</otherwise>
+		</choose>
+			
 	</update>
 	
 </mapper>

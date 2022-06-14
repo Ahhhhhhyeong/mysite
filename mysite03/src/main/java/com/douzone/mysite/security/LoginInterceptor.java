@@ -29,10 +29,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
 			return false;
 		}
-		
-		// session 처리
+
+		/* session 처리 */		
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
+		
 		response.sendRedirect(request.getContextPath());
 		return false;
 	}

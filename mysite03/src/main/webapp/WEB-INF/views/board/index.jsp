@@ -57,7 +57,7 @@
 							<td>${vo.hit }</td>
 							<td>${vo.reg_date }</td>
 							<td>
-							 	<c:if test="${vo.user_no eq authUser.no }">
+							 	<c:if test="${authUser.no eq vo.user_no }">
 							 		<a href="${pageContext.request.contextPath }/board/delete?no=${vo.no }" class="del">삭제</a>
 							 	</c:if>		
 							</td>

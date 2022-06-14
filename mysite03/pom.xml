@@ -37,6 +37,13 @@
 		    <artifactId>spring-webmvc</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- Validation -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.3.Final</version>
+		</dependency>
 
 		<!-- Spring JDBC -->
 		<dependency>
@@ -121,7 +128,8 @@
 		    <artifactId>jsp-api</artifactId>
 		    <version>2.2</version>
 		    <scope>provided</scope>
-		</dependency>	
+		</dependency>
+		
 	</dependencies>
 
 	<build>

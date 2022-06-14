@@ -16,8 +16,7 @@
 	<!-- Auto Proxy -->
 	<aop:aspectj-autoproxy />
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
-	<mvc:annotation-driven>
-		
+	<mvc:annotation-driven>		
 		<!-- Argument Resolver -->
 		<mvc:argument-resolvers>
 			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
@@ -35,14 +34,10 @@
 			<mvc:mapping path="/user/auth"/>
 			<bean class="com.douzone.mysite.security.LoginInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>
-	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout"/>
 			<bean class="com.douzone.mysite.security.LogoutInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
-	<mvc:interceptors>
+		</mvc:interceptor>		
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/assets/**"/>

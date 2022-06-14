@@ -41,8 +41,7 @@ public class AdminController {
 		vo.setProfileURL(url);
 		
 		siteService.updateSite(vo);
-		// sitevo => 새로운 vo로 변경해줘야함
-		
+		// sitevo => 새로운 vo로 변경해줘야함		
 		
 		return "redirect:/admin/main";
 	}

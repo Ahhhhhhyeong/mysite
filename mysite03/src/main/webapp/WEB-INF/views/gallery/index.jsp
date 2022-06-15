@@ -50,7 +50,7 @@ $(function(){
 			<div id="gallery">
 				<div>
 					<h1>갤러리</h1>
-					<c:if test='${not empty authUser }'>
+					<c:if test='${authUser.role eq "ADMIN" }'>
 						<a href="" id="upload-image">이미지 올리기</a>
 					</c:if>
 				</div>
@@ -61,7 +61,7 @@ $(function(){
 								data-lightbox="gallery"
 								class="image"
 								style="background-image:url('${pageContext.request.contextPath }${vo.url }')">&nbsp;</a>
-							<c:if test='${not empty authUser  	}'>	
+							<c:if test='${authUser.role eq "ADMIN" }'>	
 								<a	href="${pageContext.request.contextPath }/gallery/delete/${vo.no }"
 									class="del-button"
 									title="삭제">삭제</a>

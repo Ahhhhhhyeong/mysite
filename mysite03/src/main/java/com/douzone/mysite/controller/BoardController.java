@@ -61,11 +61,11 @@ public class BoardController {
 		BoardVo boardVo = boardService.getView(no);
 		boardVo.setO_no(boardVo.getO_no() + 1);
 		boardVo.setDepth(boardVo.getDepth() + 1);
-
-		model.addAttribute("vo", boardVo);
+		model.addAttribute("boardVo", boardVo);
 
 		return "board/write";
 	}
+	
 	@Auth
 	@RequestMapping("/modify/{no}") 
 	public String modify(@AuthUser UserVo authUser, @PathVariable("no") Long no, Model model) {

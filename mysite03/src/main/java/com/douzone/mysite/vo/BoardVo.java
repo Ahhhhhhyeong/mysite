@@ -77,10 +77,10 @@ public class BoardVo {
 		this.user_no = user_no;
 	}
 	
-	public String getUser_name() {
+	public String getName() {
 		return name;
 	}
-	public void setUser_name(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 }

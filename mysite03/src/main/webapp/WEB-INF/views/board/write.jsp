@@ -15,39 +15,51 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
+					<input type="hidden" name="p" value="${param.p }" />
+					<input type="hidden" name="kwd" value="${param.kwd }" />
 					<c:choose>
-						<c:when test='${param.no == "0"}'>
-							<input type = "text" name = 'no' value = '0'/>
-							<input type = "text" name = 'g_no' value = '0'/>
-							<input type = "text" name = 'o_no' value = '1'/>
-							<input type = "text" name = 'depth' value = '0'/>
+						<c:when test="${boardVo != null}">						
+							<input type="hidden" name='g_no' value = 'vo.g_no' />
+							<input type="hidden" name='o_no' value = 'vo.o_no' />
+							<input type="hidden" name='depth' value = 'vo.depth' />
+							11
+							<table class="tbl-ex">							
+								<tr>
+									<th colspan="2">글쓰기</th>
+								</tr>
+								<tr>
+									<td class="label">제목</td>
+									<td><input type="text" name="title"></td>
+								</tr>
+								<tr>
+									<td class="label">내용</td>
+									<td>
+										<textarea id="content" name="contents"></textarea>
+									</td>
+								</tr>
+						    </table>
 						</c:when>
 						<c:otherwise>
-							<input type = "text" name = 'no' value = '${vo.no }'/>
-							<input type = "text" name = 'g_no' value = '${vo.gno }'/>
-							<input type = "text" name = 'o_no' value = '${vo.ono }'/>
-							<input type = "text" name = 'depth' value = '${vo.depth }'/>
-						</c:otherwise>						
+							<table class="tbl-ex">
+								<tr>
+									<th colspan="2">글쓰기</th>
+								</tr>
+								<tr>
+									<td class="label">제목</td>
+									<td><input type="text" name="title"></td>
+								</tr>
+								<tr>
+									<td class="label">내용</td>
+									<td>
+										<textarea id="content" name="contents"></textarea>
+									</td>
+								</tr>
+							</table>
+						</c:otherwise>
 					</c:choose>
 					
-
-					<table class="tbl-ex">
-						<tr>
-							<th colspan="2">글쓰기</th>
-						</tr>
-						<tr>
-							<td class="label">제목</td>
-							<td><input type="text" name="title"></td>
-						</tr>
-						<tr>
-							<td class="label">내용</td>
-							<td>
-								<textarea id="content" name="contents"></textarea>
-							</td>
-						</tr>
-					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board">취소</a>
+						<a href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

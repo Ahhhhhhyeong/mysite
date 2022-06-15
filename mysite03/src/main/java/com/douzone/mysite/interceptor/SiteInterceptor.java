@@ -1,5 +1,6 @@
 package com.douzone.mysite.interceptor;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,14 +18,15 @@ public class SiteInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		SiteVo sc = (SiteVo)request.getServletContext().getAttribute("site");
-	
-		if(sc ==  null) {
-			sc = siteService.getSite();
-			request.getServletContext().setAttribute("site", sc);
-			System.out.println(sc);
+		ServletContext sc = request.getServletContext();
+		
+		if(sc.getAttribute("site") == null) {
+			sc.setAttribute("site", siteService.getSite());
+			response.sendRedirect(request.getContextPath());
+			return false;
 		}
 		
 		return true;
+		
 	}
 }

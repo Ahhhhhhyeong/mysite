@@ -16,6 +16,7 @@
 		<div id="content">
 			<div id="board" class="board-form">
 					<c:set var='newline' value='\n' />
+					
 						<table class="tbl-ex">				
 							<tr>
 								<th colspan="2">글보기</th>
@@ -37,11 +38,11 @@
 							<a href="${pageContext.request.contextPath }/board">글목록</a>
 							<c:choose>
 								<c:when test="${authUser.no eq vo.user_no }">
-									<a href="${pageContext.request.contextPath }/board/modifyform?&no=${vo.no}">글수정</a>
-									<a href="${pageContext.request.contextPath }/board/write&no=${vo.no}">답글달기</a>
+									<a href="${pageContext.request.contextPath }/board/modify/${vo.no}">글수정</a>
+									<a href="${pageContext.request.contextPath }/board/write/${vo.no}">답글달기</a>
 								</c:when>
 								<c:when test="${authUser.no != null}">
-									<a href="${pageContext.request.contextPath }/board/write?no=${vo.no}">답글달기</a>																															
+									<a href="${pageContext.request.contextPath }/board/write/${vo.no}">답글달기</a>																															
 								</c:when>
 							</c:choose>
 						</div>

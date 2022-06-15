@@ -41,9 +41,13 @@ public class BoardRepository extends BoardVo {
 		sqlSession.insert("board.insert", vo);
     }
 
-    public void delete(Long no) {
-		sqlSession.delete("board.delete", no);
-    }
+    public int delete(Long no, Long userNo) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("no", no);
+		map.put("userNo", userNo);
+
+		return sqlSession.delete("board.delete", map);
+	}
 
 	public void update(BoardVo vo) {
 		sqlSession.update("board.update", vo);
@@ -51,6 +55,15 @@ public class BoardRepository extends BoardVo {
 	
 	public boolean insert(BoardVo vo) {
 		return sqlSession.insert("board.insert", vo) == 1; 
+	}
+
+	public List<BoardVo> findAllByPageAndKeword(String keyword, int page, int size) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", '%' + keyword + '%');
+		map.put("startIndex", (page - 1) * size);
+		map.put("size", size);
+
+		return sqlSession.selectList("board.findAllByPageAndKeword", map);
 	}
 	
 	

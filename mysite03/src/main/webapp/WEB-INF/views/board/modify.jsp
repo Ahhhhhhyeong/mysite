@@ -15,12 +15,11 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/modify">
-					<input type='hidden' name='no' value='${param.no }'>
+					<input type='hidden' name='no' value='${vo.no }'>
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
-						</tr>
-						<c:forEach items='${list }' var='vo' varStatus='status'>								
+						</tr>							
 							<tr>
 								<td class="label">제목</td>
 								<td><input type="text" name="title" value='${vo.title }'></td>
@@ -28,10 +27,9 @@
 							<tr>
 								<td class="label">내용</td>
 								<td>
-									<textarea id="content" name="content"> ${vo.contents }</textarea>
+									<textarea id="content" name="contents"> ${vo.contents }</textarea>
 								</td>
 							</tr>
-						</c:forEach>
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath }/board">취소</a>

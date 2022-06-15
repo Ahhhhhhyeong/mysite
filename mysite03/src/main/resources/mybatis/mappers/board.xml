@@ -12,8 +12,6 @@
 	</select>
 
 	<select id="findAll" parameterType="map"  resultType="boardvo">
-	<choose>
-		<when test='kwd == "" '>
 			<![CDATA[
 				SELECT a.no, a.title, a.contents, a.hit, 
 					a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no 
@@ -22,19 +20,18 @@
 					AND a.title like #{kwd } 
 				 ORDER BY g_no desc, o_no asc, depth asc limit #{page }, 5
 			]]>
-		</when>
-		<otherwise>
-			<![CDATA[				
-				select a.no, a.title, a.contents, a.hit,
-				   a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no
-				from board a , user b
-					where a.user_no = b.no
-					AND a.title like #{kwd } 
-				order by g_no desc, o_no asc, depth asc	limit #{page }, 5	
-			]]>
-		</otherwise>
-	</choose>		
 		
+	</select>
+	
+	<select id="findAllByPageAndKeword" parameterType="map" resultType="boardvo">
+		<![CDATA[
+				SELECT a.no, a.title, a.contents, a.hit, 
+					a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no 
+				 FROM board a , user b 
+				 WHERE a.user_no = b.no
+					AND a.title like #{keyword } 
+				 ORDER BY g_no desc, o_no asc, depth asc limit #{startIndex }, #{size }
+		]]>
 	</select>
 	
 	<select id="totalCount" parameterType="string" resultType="integer">
@@ -70,9 +67,9 @@
 	</update>
 	
 	
-	<delete id="delete" parameterType="long">
+	<delete id="delete" parameterType="map">
 		<![CDATA[
-			DELETE FROM board WHERE no = #{no }
+			DELETE FROM board WHERE no = #{no } AND user_no = #{userNo }
 		]]>
 	</delete>
 	

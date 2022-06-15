@@ -36,12 +36,12 @@ public class GalleryController {
 	public String upload(
 			@RequestParam(value="comments", required=true, defaultValue="") String comment,
 			@RequestParam("file") MultipartFile multipartFile) {
-		
-		String url = fileUploadService.restore(multipartFile);		
+			
+		String url = fileUploadService.restore(multipartFile);			
 		GalleryVo vo = new GalleryVo();
 		vo.setUrl(url);
 		vo.setComment(comment);
-		System.out.println("########################" + vo.getUrl() + "," + vo.getComment());
+	
 		galleryService.saveImage(vo);
 		
 		return "redirect:/gallery";

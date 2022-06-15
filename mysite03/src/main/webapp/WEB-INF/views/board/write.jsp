@@ -18,10 +18,10 @@
 					<input type="hidden" name="p" value="${param.p }" />
 					<input type="hidden" name="kwd" value="${param.kwd }" />
 					<c:choose>
-						<c:when test="${boardVo != null}">						
-							<input type="text" name='g_no' value = '${boardVo.g_no}' />
-							<input type="text" name='o_no' value = '${boardVo.o_no}' />
-							<input type="text" name='depth' value = '${boardVo.depth}' />
+						<c:when test="${boardVo == null}">						
+							<input type="hidden" name='g_no' value = '${boardVo.g_no}' />
+							<input type="hidden" name='o_no' value = '${boardVo.o_no}' />
+							<input type="hidden" name='depth' value = '${boardVo.depth}' />
 							<table class="tbl-ex">							
 								<tr>
 									<th colspan="2">글쓰기</th>

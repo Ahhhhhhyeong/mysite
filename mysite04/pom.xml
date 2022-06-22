@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.douzone</groupId>
-		<artifactId>mysite</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+
+	<groupId>com.douzone</groupId>
+	<version>0.0.1-SNAPSHOT</version>
+
 	<artifactId>mysite04</artifactId>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
@@ -19,25 +20,25 @@
 	<dependencies>
 		<!-- Spring Context -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
-		
-		  <!-- Spring aspect -->
-	   <dependency>
-	          <groupId>org.springframework</groupId>
-	          <artifactId>spring-aspects</artifactId>
-	          <version>${org.springframework-version}</version>
-	   </dependency>
-		
+
+		<!-- Spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- Spring MVC -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<!-- Validation -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
@@ -47,9 +48,9 @@
 
 		<!-- Spring JDBC -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 		<!-- MyBatis Core -->
@@ -58,7 +59,7 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.5.9</version>
 		</dependency>
-		
+
 		<!-- MyBatis Spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -68,38 +69,38 @@
 
 		<!-- Common DBCP -->
 		<dependency>
-		    <groupId>commons-dbcp</groupId>
-		    <artifactId>commons-dbcp</artifactId>
-		    <version>1.4</version>
-		</dependency>
-		
-		<!-- MariaDB JDBC Driver -->
-		<dependency>
-		    <groupId>org.mariadb.jdbc</groupId>
-		    <artifactId>mariadb-java-client</artifactId>
-		    <version>2.7.5</version>
-		</dependency>
-				
-		<!-- JSTL -->
-		<dependency>
-		    <groupId>jstl</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
-		</dependency>
-		
-		
-		<!-- SLF4J -->
-		<dependency>                                    
-		   <groupId>org.slf4j</groupId>                
-		   <artifactId>jcl-over-slf4j</artifactId>     
-		   <version>1.7.36</version>  
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
 
-		<!-- Logback-->
+		<!-- MariaDB JDBC Driver -->
 		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-classic</artifactId>
-		    <version>1.2.11</version>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+
+		<!-- SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.36</version>
+		</dependency>
+
+		<!-- Logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.11</version>
 		</dependency>
 
 
@@ -114,22 +115,22 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.11.0</version>
 		</dependency>
-				
-				
+
+
 		<!-- Servlet -->
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>4.0.1</version>
-		    <scope>provided</scope>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		    <groupId>javax.servlet.jsp</groupId>
-		    <artifactId>jsp-api</artifactId>
-		    <version>2.2</version>
-		    <scope>provided</scope>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
@@ -153,5 +154,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

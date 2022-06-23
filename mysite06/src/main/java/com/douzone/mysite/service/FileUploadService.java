@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileUploadService {
-	private static String RESTORE_PATH = "/mysite-uploads";
+	private static String RESTORE_PATH = "/mysite-uploads/gallery";
 	private static String URL_BASE = "/assets/gallery";
 	
 	public String restore(MultipartFile multipartFile) {

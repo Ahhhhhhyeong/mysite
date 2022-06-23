@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="findByNo" parameterType="long" resultType="boardvo">
+		<![CDATA[
+			select a.no, a.title, a.contents, a.reg_date,
+				 a.hit, a.g_no, a.o_no, a.depth, a.user_no, b.name
+				from board a, user b
+			where a.user_no = b.no 
+			and a.no=#{no }
+		]]>	
+	</select>
+
+	<select id="findAll" parameterType="map"  resultType="boardvo">
+			<![CDATA[
+				SELECT a.no, a.title, a.contents, a.hit, 
+					a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no 
+				 FROM board a , user b 
+				 WHERE a.user_no = b.no
+					AND a.title like #{kwd } 
+				 ORDER BY g_no desc, o_no asc, depth asc limit #{page }, 5
+			]]>
+		
+	</select>
+	
+	<select id="findAllByPageAndKeword" parameterType="map" resultType="boardvo">
+		<![CDATA[
+				SELECT a.no, a.title, a.contents, a.hit, 
+					a.reg_date, a.g_no, a.o_no, a.depth, b.name, a.user_no 
+				 FROM board a , user b 
+				 WHERE a.user_no = b.no
+					AND a.title like #{keyword } 
+				 ORDER BY g_no desc, o_no asc, depth asc limit #{startIndex }, #{size }
+		]]>
+	</select>
+	
+	<select id="totalCount" parameterType="string" resultType="integer">
+		<![CDATA[
+			SELECT count(*) FROM board
+				WHERE title like #{kwd } 
+		]]>
+	</select>
+	
+	<update id="updateHit" parameterType="map">
+			<![CDATA[
+				UPDATE board SET hit = hit + 1
+					WHERE no = #{no }
+			]]>
+	</update>
+	
+	<insert id="insert" parameterType="boardvo">
+		<choose>
+			<when test="g_no == null">
+				<![CDATA[
+						INSERT INTO  
+							board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) 
+						select #{title }, #{contents }, 0, now(), ifnull(MAX(g_no) + 1, 1) , 1, 0, #{user_no } 
+							from board
+				]]>	
+			</when>
+			<otherwise>
+				<![CDATA[
+					INSERT INTO  
+						 board (title, contents, hit, reg_date, g_no, o_no, depth, user_no) 
+					values(#{title }, #{contents}, 0, now(), #{g_no } , #{o_no }, #{depth }, #{user_no })
+				]]>	
+			</otherwise>
+		</choose>
+			
+	</insert>
+	
+	
+	
+	<update id="update" parameterType="boardvo">
+			<![CDATA[
+				 UPDATE board SET 
+					title = #{title }  
+					, contents = #{contents }
+			 	WHERE no = #{no }
+			]]>
+	</update>
+	
+	
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+			DELETE FROM board WHERE no = #{no } AND user_no = #{userNo }
+		]]>
+	</delete>
+	
+</mapper>

@@ -16,6 +16,7 @@
 	</properties>
 
 	<dependencies>
+	
 		<!-- Spring Context -->
 		<dependency>
 		    <groupId>org.springframework</groupId>

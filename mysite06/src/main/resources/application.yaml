@@ -1,5 +1,8 @@
 # spring configuration
 spring:
+   application:
+      name: mysite
+      
    # devtools - live reload
    devtools:
       livereload:
@@ -61,4 +64,18 @@ server:
 ---
 # logging configuration
 loggin:
-   config: classpath:logback.xml
+   pattern: 
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "/${spring.application.name}-logs/exception.%d{yyyy-MM-dd hh-MM-ss}.%i.log.zip"
+         max-file-size: 200MB
+         max-history: 10
+   file:
+      name: "/${spring.application.name}-logs/exception.log"
+   level:
+      root: DEBUG
+      com:
+         douzone:
+            mysite:
+               exception: ERROR  

@@ -55,7 +55,7 @@
 	<mvc:default-servlet-handler/>
 
 	<!-- MVC Resource Mapping -->
-	<mvc:resources mapping="/assets/gallery/**" location="file:/mysite-uploads/"  />
+	<mvc:resources mapping="/assets/gallery/**" location="file:/mysite-uploads/gallery/"  />
 
 	<!-- Message Resource -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

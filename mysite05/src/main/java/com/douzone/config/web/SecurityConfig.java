@@ -25,7 +25,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(null);
+		resolvers.add(handlerMethodArgumentResolver());
 	}
 
 	

@@ -28,6 +28,10 @@ public class UserRepository {
 	public boolean update(UserVo vo) {
 		// 동적쿼리문 활용
 		return sqlSession.update("user.update", vo) == 1;
+	}
+
+	public UserVo findByEmail(String email) {
+		return sqlSession.selectOne("user.findByEmail", email);
 	}	
 
 }

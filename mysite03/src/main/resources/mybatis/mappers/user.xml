@@ -29,6 +29,17 @@
 		]]>
 	</select>
 	
+	<select id="findByEmail" parameterType="string" resultType="uservo">
+		<![CDATA[
+			SELECT
+			no, email
+			FROM user 
+			WHERE 
+			email = #{email }
+		]]>
+	</select>
+	
+	
 	<!-- 동적쿼리문 -->
 	<update id="update" parameterType="uservo">
 		<choose>

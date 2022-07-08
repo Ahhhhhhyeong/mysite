@@ -21,7 +21,8 @@ public class ApplicationExceptionHandler {
 	private static final Log LOGGER = LogFactory.getLog(ApplicationExceptionHandler.class);
 	
 	@ExceptionHandler(Exception.class)
-	public void handlerException(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
+	public void handlerException(HttpServletRequest request, 
+			HttpServletResponse response, Exception e) throws Exception {
 		
 		//1. 로깅(logging)
 		StringWriter errors = new StringWriter();

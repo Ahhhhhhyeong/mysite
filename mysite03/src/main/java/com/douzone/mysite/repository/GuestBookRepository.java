@@ -30,6 +30,10 @@ public class GuestBookRepository {
 		map.put("no", value);
 		map.put("password", password);
 		return sqlSession.delete("guestbook.delete", map) == 1;
+	}
+
+	public List<GuestBookVo> getList(Long sno) {
+		return sqlSession.selectList("guestbook.getList", sno);
 	}	
 
 

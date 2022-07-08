@@ -10,8 +10,27 @@
 					date_format(regdate, '%Y-%m-%d') as regdate, 
 					no 
 				FROM guestbook 
-			order by no desc
+			order by no desc 
 		]]>
+	</select>
+	
+	<select id="getList" parameterType="long" resultType="guestbookvo">
+		<![CDATA[
+			SELECT
+				name,
+				password,
+				message,
+				date_format(regdate, '%Y-%m-%d') as regdate, 
+				no
+			 FROM guestbook
+			 order by no desc limit #{sno }, 5
+		]]>		
+	</select>
+	
+	<select id="totalCount" resultType="integer">
+		<![CDATA[
+			SELECT count(*) FROM guestbook
+		 ]]>
 	</select>
 	
 	<delete id="delete" parameterType="map" >
@@ -35,5 +54,7 @@
 			]]>
 		</selectKey>
 	</insert>
+	
+	
 	
 </mapper>

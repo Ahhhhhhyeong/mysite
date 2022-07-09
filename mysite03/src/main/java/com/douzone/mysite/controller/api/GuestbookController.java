@@ -1,6 +1,9 @@
 package com.douzone.mysite.controller.api;
 
+import java.lang.invoke.CallSite;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,11 +25,14 @@ public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
 	
+		
 	@GetMapping("")
 	public JSONResult getList(@RequestParam Long sno) {		
 		List<GuestBookVo> list = guestbookService.getList(sno);
-		
-		return JSONResult.success(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", guestbookService.totalCount());
+		return JSONResult.success(map);
 	}
 	
 	@PostMapping("/insert")

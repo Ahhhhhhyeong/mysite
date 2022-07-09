@@ -66,6 +66,7 @@
 		}
 		
 		var fetch = function(sno) { // 게시글 불러오기
+			console.log("function :" + sno);
 			$.ajax({
 				url: "${pageContext.request.contextPath }/api/guestbook",
 				type: "get",
@@ -80,14 +81,16 @@
 					if(response.result !== 'success'){
 						console.error(response.message);
 						return;
-					}					
-					response.data.forEach(function(list){
+					}		
+					totalCount = response.data.totalCount;
+					
+					response.data.list.forEach(function(list){
 						if(list == ''){
 							isMaxPage = true; 
 							return;
 						}
 						render(list, true);
-					});
+					}); 
 				}      
 			});
 		};
@@ -138,7 +141,7 @@
 		
 		var nowPage = 1;
 		var count = 5;
-		var isMaxPage = false;
+		var totalCount;
 		
 		$(window).scroll(function(event){
 			var $window = $(this);
@@ -147,11 +150,11 @@
 			var windowHeight = $window.height();
 			var documentHeight = $document.height();
 			var scrollTop = $window.scrollTop();
-			
-			if(documentHeight < windowHeight + scrollTop + 10 && !isMaxPage) {
-				fetch(nowPage);	// 페이지 찾기
-				nowPage *= count;
-				console.log(isMaxPage, nowPage);
+						
+			if(documentHeight < windowHeight + scrollTop + 10 && totalCount >= nowPage) {
+				fetch(count);	 // 페이지 찾기
+				nowPage += count;
+				
 			}
 		});
 		
@@ -189,28 +192,28 @@
 			vo.message = $("#tx-content").val();
 
 			$.ajax({
-			url:"${pageContext.request.contextPath }/api/guestbook/insert",
-			type:"post",
-			dataType:"json",
-			contentType: "application/json",
-			data: JSON.stringify(vo),
-			success: function(response) {
-				if(response.result !== 'success') {
-					return;
-				}			
-				
-				$("#input-name").val('');
-				$("#input-password").val('');
-				$("#tx-content").val('');
-
-				location.reload();
-			} 
-		});
-			
-			
-		});		
+				url:"${pageContext.request.contextPath }/api/guestbook/insert",
+				type:"post",
+				dataType:"json",
+				contentType: "application/json",
+				data: JSON.stringify(vo),
+				success: function(response) {
+					if(response.result !== 'success') {
+						return;
+					}			
+					
+					$("#input-name").val('');
+					$("#input-password").val('');
+					$("#tx-content").val('');
 	
+					location.reload();
+				} 
+			});						
+		});	
+		
+		
 		fetch(0);
+		
 	});
 	
 	

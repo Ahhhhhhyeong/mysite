@@ -26,7 +26,8 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping("")
-	public String index(@RequestParam(value="p", required=true, defaultValue="1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword, Model model) {
+	public String index(
+			@RequestParam(value="p", required=true, defaultValue="1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword, Model model) {
 		Map<String, Object> map = boardService.getContentsList(page, keyword);
 		model.addAttribute("map", map);
 		
@@ -49,7 +50,9 @@ public class BoardController {
 
 	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(@AuthUser UserVo authUser, BoardVo boardVo, @RequestParam(value = "p", required = true, defaultValue = "1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword) {
+	public String write(@AuthUser UserVo authUser, BoardVo boardVo, 
+			@RequestParam(value = "p", required = true, defaultValue = "1") Integer page, 
+			@RequestParam(value = "kwd", required = true, defaultValue = "") String keyword) {
 		boardVo.setUser_no(authUser.getNo());
 		boardService.insert(boardVo);
 		return "redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL(keyword, "UTF-8");

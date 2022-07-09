@@ -34,6 +34,15 @@ public class GuestBookRepository {
 
 	public List<GuestBookVo> getList(Long sno) {
 		return sqlSession.selectList("guestbook.getList", sno);
+	}
+
+	public int totalCount() {
+		return sqlSession.selectOne("guestbook.totalCount");
+	}
+
+	public String insertContent(GuestBookVo vo) {
+		int no = sqlSession.insert("guestbook.insert", vo);		
+		return Integer.toString(no);
 	}	
 
 

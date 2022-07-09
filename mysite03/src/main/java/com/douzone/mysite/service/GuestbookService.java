@@ -26,7 +26,17 @@ public class GuestbookService {
 		return guestBookRepository.insert(vo);
 	}
 
+	public String addContent(GuestBookVo vo) {
+		return guestBookRepository.insertContent(vo);
+	}
+
 	public List<GuestBookVo> getList(Long sno) {
 		return guestBookRepository.getList(sno);
-	}		
+	}
+	
+	public int totalCount() {
+		return guestBookRepository.totalCount();
+	}	
+	
+	
 }

@@ -23,7 +23,7 @@
 				date_format(regdate, '%Y-%m-%d') as regdate, 
 				no
 			 FROM guestbook
-			 order by no desc limit #{sno }, 5
+			 order by no desc limit 0, 5
 		]]>		
 	</select>
 	
@@ -44,13 +44,13 @@
 	
 	<insert id="insert" parameterType="guestbookvo">
 		<![CDATA[
-			INSERT INTO guestbook
+			INSERT INTO guestbook(name, password, message, regdate)
 			 VALUES 
-			(null, #{name } , #{password }, #{message }, DATE_FORMAT(CURDATE(), '%Y-%m-%d')) 
+			(#{name } , #{password }, #{message }, DATE_FORMAT(CURDATE(), '%Y-%m-%d')) 
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
-				select last_insert_id();
+			select last_insert_id();
 			]]>
 		</selectKey>
 	</insert>

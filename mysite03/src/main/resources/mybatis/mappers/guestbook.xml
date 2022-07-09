@@ -23,7 +23,7 @@
 				date_format(regdate, '%Y-%m-%d') as regdate, 
 				no
 			 FROM guestbook
-			 order by no desc limit 0, 5
+			 order by no desc limit #{sno }, 5
 		]]>		
 	</select>
 	

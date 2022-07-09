@@ -6,14 +6,17 @@ public class GuestBookVo {
 	private String password;
 	private String message;
 	private String regdate;
+	private long allCount;
 	
 	
-	@Override
-	public String toString() {
-		return "GuestBookVo [no=" + no + ", " + ", name=" + name + ", password=" + password
-				+ ", message=" + message + ", regdate=" + regdate + "]";
+	
+	public long getAllCount() {
+		return allCount;
 	}
-	
+
+	public void setAllCount(long allCount) {
+		this.allCount = allCount;
+	}
 	
 	public long getNo() {
 		return no;
@@ -44,6 +47,13 @@ public class GuestBookVo {
 	}
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
+	}
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 	
 	

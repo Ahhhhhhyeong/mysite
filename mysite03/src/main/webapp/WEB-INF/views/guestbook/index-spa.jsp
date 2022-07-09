@@ -51,43 +51,47 @@
 
 
 <script>
-	var render = function(vo, mode) {
-	   var htmls = 
-		  "<li data-no=''>"+
-		  "<strong>"+ vo.name +"</strong>"+
-		  "<p>"+ vo.message +"</p>"+
-		  "<strong></strong>"+
-		  "<a href='' data-no='"+vo.no+"'>삭제</a>"+
-		  "</li>";
-		  
-	   $("#list-guestbook")[mode?"append":"prepend"](htmls);
-	}
-	
-	var fetch = function(sno) { // 게시글 불러오기
-	   $.ajax({
-		  url: "${pageContext.request.contextPath }/api/guestbook",
-		  type: "get",
-		  data: "sno="+sno,
-		  dataType: "json",
-		  error: function(xhr, status, error) {
-			console.error("xhr: " + xhr);
-			console.error("status: " + status);
-			console.error("Error: " + error);
-		},
-		  success: function(response) {
-			 if(response.result !== 'success'){
-				console.error(response.message);
-				return;
-			 }
-			 
-			 response.data.forEach(function(list){
-				render(list, true);
-			 });
-		  }      
-	   });
-	};
-	 
+
 	$(function(){
+		var render = function(vo, mode) {
+			var htmls = 
+				"<li data-no=''>"+
+				"<strong>"+ vo.name +"</strong>"+
+				"<p>"+ vo.message +"</p>"+
+				"<strong></strong>"+
+				"<a href='' data-no='"+vo.no+"'>삭제</a>"+
+				"</li>";
+				
+			$("#list-guestbook")[mode?"append":"prepend"](htmls);
+		}
+		
+		var fetch = function(sno) { // 게시글 불러오기
+			$.ajax({
+				url: "${pageContext.request.contextPath }/api/guestbook",
+				type: "get",
+				data: "sno="+sno,
+				dataType: "json",
+				error: function(xhr, status, error) {
+					console.error("xhr: " + xhr);
+					console.error("status: " + status);
+					console.error("Error: " + error);
+				},
+				success: function(response) {
+					if(response.result !== 'success'){
+						console.error(response.message);
+						return;
+					}					
+					response.data.forEach(function(list){
+						if(list == ''){
+							isMaxPage = true; 
+							return;
+						}
+						render(list, true);
+					});
+				}      
+			});
+		};
+		
 		var dialogDelete = $("#dialog-delete-form").dialog({
 			autoOpen: false,
 			modal: true,
@@ -131,8 +135,12 @@
 				location.reload();
 			}
 		});
-	
-		$(window).scroll(function(){
+		
+		var nowPage = 1;
+		var count = 5;
+		var isMaxPage = false;
+		
+		$(window).scroll(function(event){
 			var $window = $(this);
 			var $document = $(document);
 			
@@ -140,8 +148,10 @@
 			var documentHeight = $document.height();
 			var scrollTop = $window.scrollTop();
 			
-			if(documentHeight < windowHeight + scrollTop + 10) {
-				//fetch(10);		
+			if(documentHeight < windowHeight + scrollTop + 10 && !isMaxPage) {
+				fetch(nowPage);	// 페이지 찾기
+				nowPage *= count;
+				console.log(isMaxPage, nowPage);
 			}
 		});
 		
@@ -198,8 +208,7 @@
 		});
 			
 			
-		});
-		
+		});		
 	
 		fetch(0);
 	});
